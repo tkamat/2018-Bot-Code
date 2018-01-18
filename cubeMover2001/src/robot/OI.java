@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.buttons.*;
  *
  *@author Will English
  *@author Aditya 
+ *@Inspector_Saap Rishabh Singh
  */
 public class OI {
 	Joystick joystick = new Joystick(1);
@@ -36,11 +37,11 @@ public class OI {
  
 
         double LStickY = gamePad.getY();
-		boolean rightBump = gamePad.getBumper(GenericHID.Hand.kLeft);
+        boolean rightBump = gamePad.getBumper(GenericHID.Hand.kLeft);
         boolean leftBump = gamePad.getBumper(GenericHID.Hand.kRight);
         boolean joyTrig = joystick.getTrigger();
         boolean pressed = true;
-    	
+    	boolean released = false;
     	
     	new JoystickButton(joystick, 3).whenPressed(new climb());
         if(LStickY != 0) new driveStraight();
@@ -48,7 +49,8 @@ public class OI {
         if(leftBump == pressed) new slideLeft();
         if(joystick.getY() > 0) new liftUp();  
         if(joystick.getY() < 0) new dropDown();
-        if(joyTrig == pressed)
+        if(joyTrig == pressed) new closeClaw();
+        if(joyTrig == released) new openClaw();
 
         
         // SmartDashboard Buttons
